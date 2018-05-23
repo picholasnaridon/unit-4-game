@@ -23,6 +23,9 @@ class EnemyList extends Component {
                     <Enemy 
                         key={enemy.id}
                         id={enemy.id}
+                        HP={enemy.HP}
+                        AP={enemy.AP}
+                        counterAP={enemy.counterAP}
                         name={enemy.name}
                         imageName={enemy.imageName}
                         selectFromList={this.selectTarget}

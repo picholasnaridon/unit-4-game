@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 
-class Enemy extends Component {
+class Target extends Component {
+    
     render() {
         if (this.props.targetSelected){
             return (
@@ -9,7 +10,7 @@ class Enemy extends Component {
                     <h1>Target</h1>
                     <div>
                         <img src={require(`../assets/images/${this.props.target.imageName}.png`)}/>
-                        <div>HP {this.props.target.HP}</div>
+                        <div>HP: {this.props.target.HP}</div>
                     </div>
                 </div>
             );
@@ -22,4 +23,4 @@ class Enemy extends Component {
     }
 }
 
-export default Enemy;
+export default Target;
