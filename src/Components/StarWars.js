@@ -1,98 +1,45 @@
 import React, { Component } from 'react';
-import Character from './Character'
+import CharacterList from './CharacterList';
 import Player from './Player'
-import Enemy from './Enemy'
+import Target from './Target'
+import EnemyList from './EnemyList'
 
 class StarWars extends Component {
     constructor(props){
         super(props)
         this.state = {
-            playerCharacter: null,
-            enemyCharacters: []
+            enemies: [],
+            player: null,
+            playerSelected: false,
+            target: null,
+            targetSelected: false
         }
-        this.renderPlayerSelect = this.renderPlayerSelect.bind(this)
-        this.renderPlaying = this.renderPlaying.bind(this)
-        this.pickChar = this.pickChar.bind(this)
+        this.handlePlayerSelect = this.handlePlayerSelect.bind(this)
+        this.handleTargetSelect = this.handleTargetSelect.bind(this)
     }
-
-    pickChar(id){
+    handlePlayerSelect(playerChar){
         this.setState({
-           playerCharacter: this.props.characters[id],
-           enemyCharacters: this.props.characters.filter(char => char.id !== id)
+            player: playerChar,
+            playerSelected: true,
+            enemies: this.props.data.filter(char => char.name !== playerChar.name) 
         })
     }
-
-    renderPlayerSelect() {
-        if (this.state.playerCharacter == null) {
-            return(
-                <div>
-                    <h1>
-                        Pick A Character
-                    </h1>
-                    {this.props.characters.map((char) => 
-                        <div>
-                            <Character   
-                                key={char.id}
-                                id={char.id}
-                                name={char.name}
-                                AP={char.AP}
-                                counterAP={char.counterAP}
-                                image={char.image}
-                                imageName={char.imageName}
-                                selectChar={this.pickChar}
-                            >
-                            </Character>
-                        </div>
-                    )}
-                </div>
-            )   
-        }
-
+    handleTargetSelect(target){
+        this.setState({
+            target: target,
+            targetSelected: true,
+            enemies: this.state.enemies.filter(char => char.name !== target.name) 
+        })
     }
-    renderPlaying() {
-        if (this.state.playerCharacter != null){
-            return (
-                <div>
-                    <div style={{float: "left"}}>
-                        <h1>Player:</h1>
-                        <Player
-                                key={this.state.playerCharacter.id}
-                                id={this.state.playerCharacter.id}
-                                name={this.state.playerCharacter.name}
-                                AP={this.state.playerCharacter.AP}
-                                counterAP={this.state.playerCharacter.counterAP}
-                                image={this.state.playerCharacter.image}
-                                imageName={this.state.playerCharacter.imageName}
-                            >
-                        </Player>
-                    </div>
-                    <div style={{float: "right"}}>
-                        <h1>Enemies</h1>
-                        {this.state.enemyCharacters.map((char) => 
-                            <div>
-                                <Enemy   
-                                    key={char.id}
-                                    id={char.id}
-                                    name={char.name}
-                                    AP={char.AP}
-                                    counterAP={char.counterAP}
-                                    image={char.image}
-                                    imageName={char.imageName}
-                                >
-                                </Enemy>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )
-        }
-    }
-
     render() {
         return (
             <div>
-                {this.renderPlayerSelect()}
-                {this.renderPlaying()}
+                <div>
+                    <CharacterList data={this.props.data} selectFromBoard={this.handlePlayerSelect} playerSelected={this.state.playerSelected}/>
+                    <Player player={this.state.player} playerSelected={this.state.playerSelected}/>
+                    <EnemyList data={this.state.enemies} playerSelected={this.state.playerSelected} selectFromBoard={this.handleTargetSelect}/>
+                    <Target  target={this.state.target} targetSelected={this.state.targetSelected}/>
+                </div>
             </div>
         );
     }

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 
-class Player extends Component {
+
+class Enemy extends Component {
     render() {
-        if (this.props.playerSelected){
+        if (this.props.targetSelected){
             return (
                 <div>
-                    <h1>Player</h1>
+                    <h1>Target</h1>
                     <div>
-                        <img src={require(`../assets/images/${this.props.player.imageName}.png`)}/>
-                        <div>HP {this.props.player.HP}</div>
+                        <img src={require(`../assets/images/${this.props.target.imageName}.png`)}/>
+                        <div>HP {this.props.target.HP}</div>
                     </div>
                 </div>
             );
@@ -21,4 +22,4 @@ class Player extends Component {
     }
 }
 
-export default Player;
+export default Enemy;

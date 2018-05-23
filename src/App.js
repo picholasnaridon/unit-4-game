@@ -7,7 +7,7 @@ import charData from './assets/data.js'
 class App extends Component {
   render() {
     return (
-        <StarWars characters={charData} />
+        <StarWars data={charData} />
     );
   }
 }

@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 
 class Enemy extends Component {
+    constructor(props){
+        super(props)
+        this.state ={
+        }
+        this.handlePick = this.handlePick.bind(this)
+    }
+    handlePick(target){
+        this.props.selectFromList(this.props)
+    }
     render() {
         return (
-            <div >
-                <h1>{this.props.name}</h1>
-                <p>ID: {this.props.id}</p>
-                <p>Attach Power: {this.props.AP}</p>
-                <p>Counter Attack Power: {this.props.counterAP}</p>
+            <div>
+                <div>{this.props.name}</div>
                 <img src={require(`../assets/images/${this.props.imageName}.png`)}/>
+                <button onClick={this.handlePick}>Button</button>
             </div>
         );
     }
