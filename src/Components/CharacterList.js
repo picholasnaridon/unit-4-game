@@ -5,18 +5,18 @@ class CharacterList extends Component {
     constructor(props){
         super(props)
         this.state ={
-            playerSelected: false
+            characterChosen: false
         }
         this.selectChar = this.selectChar.bind(this)
     }
     selectChar(char){
         this.props.selectFromBoard(char)
         this.setState({
-            playerSelected: true
+            characterChosen: true
         })
     }
     render() {
-        if (!this.state.playerSelected){
+        if ((!this.state.characterChosen) || (!this.props.playerSelected)){
             return (
                 <div>
                     {this.props.data.map((char) =>
@@ -27,6 +27,7 @@ class CharacterList extends Component {
                                 name={char.name}
                                 HP={char.HP}
                                 AP={char.AP}
+                                baseAP={char.baseAP}
                                 counterAP={char.counterAP}
                                 alive={char.alive}
                                 imageName={char.imageName}
@@ -38,7 +39,7 @@ class CharacterList extends Component {
             )
         }else{
             return(
-                <div>empty</div>
+                <div></div>
             )
         }
     }

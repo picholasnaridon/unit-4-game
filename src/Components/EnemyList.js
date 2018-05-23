@@ -18,16 +18,17 @@ class EnemyList extends Component {
     render() {
         return (
             <div style={{float: "right"}}>
-                <h1>Enemy List </h1>
                 {this.props.data.map((enemy) =>
                     <Enemy 
                         key={enemy.id}
                         id={enemy.id}
                         HP={enemy.HP}
                         AP={enemy.AP}
+                        baseAP={enemy.baseAP}
                         counterAP={enemy.counterAP}
                         name={enemy.name}
                         imageName={enemy.imageName}
+                        canPick={this.props.gameState}
                         selectFromList={this.selectTarget}
                     />
                 )}

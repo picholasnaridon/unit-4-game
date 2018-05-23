@@ -13,9 +13,13 @@ class Character extends Component {
     }
     render() {
         return(
-            <div>                
-                <img src={require(`../assets/images/${this.props.imageName}.png`)}/>
-                <button onClick={this.handlePick}>Button</button>
+            <div> 
+                <div>           
+                    <img src={require(`../assets/images/${this.props.imageName}.png`)}/>
+                </div>
+                <div>
+                    <button onClick={this.handlePick}>{this.props.name}</button>
+                </div>
             </div>
         )
     }

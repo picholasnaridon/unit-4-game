@@ -6,16 +6,31 @@ class Enemy extends Component {
         this.state ={
         }
         this.handlePick = this.handlePick.bind(this)
+        this.renderSelectButton = this.renderSelectButton.bind(this)
     }
     handlePick(target){
         this.props.selectFromList(this.props)
     }
+    renderSelectButton(){
+        if(this.props.canPick == 'charSelected'){
+            return(
+                <button onClick={this.handlePick}>{this.props.name}</button>
+            )
+        }else{
+            return(
+                <div></div>
+            )
+        }
+    }
     render() {
         return (
             <div>
-                <div>{this.props.name}</div>
-                <img src={require(`../assets/images/${this.props.imageName}.png`)}/>
-                <button onClick={this.handlePick}>Button</button>
+                <div>
+                    <img src={require(`../assets/images/${this.props.imageName}.png`)}/>
+                </div>
+                <div>
+                    {this.renderSelectButton()}
+                </div>
             </div>
         );
     }

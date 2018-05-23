@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class Target extends Component {
     
     render() {
-        if (this.props.targetSelected){
+        if ((this.props.targetSelected) && (this.props.target.HP >=0)){
             return (
                 <div>
                     <h1>Target</h1>
@@ -16,7 +16,7 @@ class Target extends Component {
             );
         }else {
             return (
-                <div>Not selected </div>
+                <div></div>
             )
         }
        

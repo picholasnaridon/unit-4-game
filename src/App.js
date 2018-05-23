@@ -5,6 +5,7 @@ import './App.css';
 import charData from './assets/data.js'
 
 class App extends Component {
+
   render() {
     return (
         <StarWars data={charData} />
