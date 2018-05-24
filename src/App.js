@@ -8,7 +8,9 @@ class App extends Component {
 
   render() {
     return (
+      <div className="App">
         <StarWars data={charData} />
+      </div>
     );
   }
 }
