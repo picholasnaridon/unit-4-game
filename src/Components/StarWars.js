@@ -54,7 +54,19 @@ class StarWars extends Component {
         var targetHP = this.state.target.HP - this.state.player.AP
         var playerAP = this.state.player.AP + this.state.player.baseAP
         
-        if (this.state.target.HP <= playerAP){
+        console.log(playerHP)
+        console.log(targetHP)
+        console.log(this.state.counterAP)
+        if (playerHP <= 0){
+            this.setState(prevState => ({
+                enemies: [],
+                player: null,
+                playerSelected: false,
+                target: null,
+                targetSelected: false,
+                game: "lost"
+            }))
+        }else if (this.state.target.HP <= playerAP){
             this.setState(prevState => ({
                 player: {
                     ...prevState.player,
@@ -74,7 +86,8 @@ class StarWars extends Component {
                 targetSelected: false,
                 game: "lost"
             }))
-        }else{
+        }
+        else{
             this.setState(prevState => ({
                 player: {
                     ...prevState.player,

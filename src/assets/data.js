@@ -1,47 +1,39 @@
 var charData = [
     {
-        name: "Luke",
-        id: 0,
-        HP: 30,
-        AP: 10,
-        baseAP: 10,
-        counterAP: 10,
-        imageName: 'luke',
-        image: "./images/luke.png",
-        alive: true
-    },
-    {
         name: "Obi Wan",
         id: 1,
-        HP: 100,
-        AP: 10,
-        baseAP: 10,
+        HP: 101,
+        AP: 20,
+        baseAP: 20,
+        counterAP: 5,
+        imageName: 'obiwan'
+    },
+    {
+        name: "Luke",
+        id: 0,
+        HP: 126,
+        AP: 15,
+        baseAP: 15,
         counterAP: 10,
-        imageName: 'obiwan',
-        image: "./images/obiwan.png",
-        alive: true
+        imageName: 'luke'
     },
     {
         name: "Han",
         id: 2,
-        HP: 100,
+        HP: 151,
         AP: 10,
         baseAP: 10,
-        counterAP: 10,
-        imageName: 'han',
-        image: "./images/han/.png",
-        alive: true
+        counterAP: 15,
+        imageName: 'han'
     },
     {
         name: "Darth Vader",
         id: 3,
-        HP: 100,
-        AP: 10,
-        baseAP: 10,
-        counterAP: 10,
-        imageName: 'darthvader',
-        image: "./images/darthvader.png",
-        alive: true
+        HP: 201,
+        AP: 5,
+        baseAP: 5,
+        counterAP: 20,
+        imageName: 'darthvader'
     }
 
 ]
