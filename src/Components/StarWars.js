@@ -53,10 +53,7 @@ class StarWars extends Component {
         var playerHP = this.state.player.HP - this.state.target.counterAP
         var targetHP = this.state.target.HP - this.state.player.AP
         var playerAP = this.state.player.AP + this.state.player.baseAP
-        
-        console.log(playerHP)
-        console.log(targetHP)
-        console.log(this.state.counterAP)
+
         if (playerHP <= 0){
             this.setState(prevState => ({
                 enemies: [],
