@@ -18,9 +18,8 @@ class CharacterList extends Component {
     render() {
         if ((!this.state.characterChosen) || (!this.props.playerSelected)){
             return (
-                <div>
+                <div className="card-list">
                     {this.props.data.map((char) =>
-                        <div>
                             <Character 
                                 key={char.id}
                                 id={char.id}
@@ -33,7 +32,6 @@ class CharacterList extends Component {
                                 imageName={char.imageName}
                                 selectFromList={this.selectChar}
                             />
-                        </div>
                     )}
                 </div>
             )
@@ -46,3 +44,7 @@ class CharacterList extends Component {
 }
 
 export default CharacterList;
+
+const styles = {
+
+}

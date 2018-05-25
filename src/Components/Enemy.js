@@ -14,7 +14,7 @@ class Enemy extends Component {
     renderSelectButton(){
         if(this.props.canPick == 'charSelected'){
             return(
-                <button onClick={this.handlePick}>{this.props.name}</button>
+                <button className="card-button" onClick={this.handlePick}>{this.props.name}</button>
             )
         }else{
             return(
@@ -24,7 +24,7 @@ class Enemy extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="enemy">
                 <div>
                     <img src={require(`../assets/images/${this.props.imageName}.png`)}/>
                 </div>

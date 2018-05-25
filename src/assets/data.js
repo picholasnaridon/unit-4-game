@@ -20,7 +20,7 @@ var charData = [
     {
         name: "Han",
         id: 2,
-        HP: 151,
+        HP: 150,
         AP: 10,
         baseAP: 10,
         counterAP: 15,
@@ -30,8 +30,8 @@ var charData = [
         name: "Darth Vader",
         id: 3,
         HP: 201,
-        AP: 5,
-        baseAP: 5,
+        AP: 2,
+        baseAP: 2,
         counterAP: 20,
         imageName: 'darthvader'
     }

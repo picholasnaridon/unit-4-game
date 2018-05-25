@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../assets/styles/style.css'
 
 class Character extends Component {
     constructor(props){
@@ -13,12 +14,12 @@ class Character extends Component {
     }
     render() {
         return(
-            <div> 
+            <div className="card">  
                 <div>           
                     <img src={require(`../assets/images/${this.props.imageName}.png`)}/>
                 </div>
                 <div>
-                    <button onClick={this.handlePick}>{this.props.name}</button>
+                    <button className="card-button" onClick={this.handlePick}>{this.props.name}</button>
                 </div>
             </div>
         )

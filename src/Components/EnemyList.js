@@ -17,7 +17,7 @@ class EnemyList extends Component {
     }
     render() {
         return (
-            <div style={{float: "right"}}>
+            <div className="enemy-list">
                 {this.props.data.map((enemy) =>
                     <Enemy 
                         key={enemy.id}

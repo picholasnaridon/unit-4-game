@@ -3,7 +3,7 @@ import CharacterList from './CharacterList';
 import Player from './Player'
 import Target from './Target'
 import EnemyList from './EnemyList'
-import update from 'react-addons-update'
+import CombatMessaging from './CombatMessaging';
 
 class StarWars extends Component {
     constructor(props){
@@ -18,8 +18,7 @@ class StarWars extends Component {
         }
         this.handlePlayerSelect = this.handlePlayerSelect.bind(this)
         this.handleTargetSelect = this.handleTargetSelect.bind(this)
-        this.playerAttack = this.playerAttack.bind(this)
-        this.renderMessaging = this.renderMessaging.bind(this)
+        this.startCombat = this.startCombat.bind(this)
         this.resetGame = this.resetGame.bind(this)
     }
     handlePlayerSelect(playerChar){
@@ -49,96 +48,95 @@ class StarWars extends Component {
         })
     }
 
-    playerAttack(){
+    playerDied(){
+        this.setState(prevState => ({
+            enemies: [],
+            player: null,
+            playerSelected: false,
+            target: null,
+            targetSelected: false,
+            game: "lost"
+        }))
+    }
+    targetDied(){
+        var playerHP = this.state.player.HP - this.state.target.counterAP
+        var playerAP = this.state.player.AP + this.state.player.baseAP
+
+        this.setState(prevState => ({
+            player: {
+                ...prevState.player,
+                HP: playerHP,
+                AP: playerAP
+            },
+            target: null,
+            targetSelected: false,
+            game: "charSelected"
+        }))
+    }
+
+    attack(){
         var playerHP = this.state.player.HP - this.state.target.counterAP
         var targetHP = this.state.target.HP - this.state.player.AP
         var playerAP = this.state.player.AP + this.state.player.baseAP
+        
+        this.setState(prevState => ({
+            player: {
+                ...prevState.player,
+                HP: playerHP,
+                AP: playerAP
+            },
+            target: {
+                ...prevState.target,
+                HP: targetHP
+            }
+        }))
+    }
+    wonGame(){
+        this.setState({
+            enemies: [],
+            target: null,
+            targetSelected: false,
+            game: "won"
+
+        })
+    }
+
+    startCombat(){
+        var playerHP = this.state.player.HP - this.state.target.counterAP
+        var playerAP = this.state.player.AP + this.state.player.baseAP
+        var targetHP = this.state.target.HP - this.state.player.AP
 
         if (playerHP <= 0){
-            this.setState(prevState => ({
-                enemies: [],
-                player: null,
-                playerSelected: false,
-                target: null,
-                targetSelected: false,
-                game: "lost"
-            }))
+            this.playerDied()
+        }else if ((playerHP >= 0) && (this.state.enemies.length === 0) && (targetHP <= 0)){
+            this.wonGame()
         }else if (this.state.target.HP <= playerAP){
-            this.setState(prevState => ({
-                player: {
-                    ...prevState.player,
-                    HP: playerHP,
-                    AP: playerAP
-                },
-                target: null,
-                targetSelected: false,
-                game: "charSelected"
-            }))
+            this.targetDied()
         }else if (this.state.player.HP <= this.state.target.counterAP){
-            this.setState(prevState => ({
-                enemies: [],
-                player: null,
-                playerSelected: false,
-                target: null,
-                targetSelected: false,
-                game: "lost"
-            }))
-        }
-        else{
-            this.setState(prevState => ({
-                player: {
-                    ...prevState.player,
-                    HP: playerHP,
-                    AP: playerAP
-                },
-                target: {
-                    ...prevState.target,
-                    HP: targetHP
-                }
-            }))
+            this.playerDied()
+        }else{
+            this.attack()
         }
     }
-
-    renderMessaging(){
-        if (this.state.game == "initial"){
-            return(
-                <h1>Pick a Character </h1>
-            )
-        }else if ((this.state.game == "charSelected") && (this.state.enemies.length == 0)){
-            return(
-                <div>
-                    <h1> You've Won </h1>
-                    <button onClick={this.resetGame}>Reset Game </button>
-                </div>
-            )
-        }else if (this.state.game == "charSelected"){
-            return(
-                <h1>Pick an Enemy</h1>
-            )
-        }else if (this.state.game == "playing"){
-            return (
-                <h1>FIGHT TO THE DEATH </h1>
-            )
-        }else  {
-            return(
-                <h1>You've Lost, Try again! </h1>
-            )
-        }
-    }
-
-
 
     render() {
         return (
-            <div>
-                 <div>
-                     {this.renderMessaging()}
-                     <CharacterList data={this.props.data} selectFromBoard={this.handlePlayerSelect} playerSelected={this.state.playerSelected}/>
-                     <EnemyList data={this.state.enemies} playerSelected={this.state.playerSelected} selectFromBoard={this.handleTargetSelect} gameState={this.state.game}/>
-
-                     <Player player={this.state.player} playerSelected={this.state.playerSelected} playerAttack={this.playerAttack} gameState={this.state.game}/>
-                     <Target  target={this.state.target} targetSelected={this.state.targetSelected} targetAttack={this.targetAttack}/>
-                 </div>
+            <div className="app">
+                <div className="global-message">
+                    <CombatMessaging game={this.state.game} gameOver={this.resetGame}/>
+                </div>
+                <div className="board">
+                    <div className="playing-container">
+                        <Player player={this.state.player} playerSelected={this.state.playerSelected} playerAttack={this.startCombat} gameState={this.state.game}/>
+                        <Target  target={this.state.target} targetSelected={this.state.targetSelected} targetAttack={this.targetAttack}/>
+                    </div>
+                    <div className="char-list-container">
+                        <CharacterList data={this.props.data} selectFromBoard={this.handlePlayerSelect} playerSelected={this.state.playerSelected}/>
+                    </div>
+                    <div className="enemy-list-container">
+                        <EnemyList data={this.state.enemies} playerSelected={this.state.playerSelected} selectFromBoard={this.handleTargetSelect} gameState={this.state.game}/>
+                    </div>
+                </div>
             </div>
         );
     }
